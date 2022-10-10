@@ -4,14 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:titlebar_buttons/titlebar_buttons.dart';
 import 'package:window_manager/window_manager.dart';
 
-class TitleBar extends StatefulWidget {
+class TitleBar extends StatelessWidget {
   const TitleBar({super.key});
 
-  @override
-  State<TitleBar> createState() => _TitleBarState();
-}
-
-class _TitleBarState extends State<TitleBar> {
   final ThemeType _currentThemeType = ThemeType.auto;
 
   @override

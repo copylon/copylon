@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openhms/core/styles/themes.dart';
-import 'package:openhms/login/view/login_page.dart';
+import 'package:openhms/home/view/home_page.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.dark,
-      home: const LoginPage(),
+      home: const HomePage(),
     );
   }
 }

@@ -26,6 +26,39 @@ class Header extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: theme.onSurface),
             ),
+            SizedBox(
+              width: 546,
+              child: TextField(
+                cursorColor: theme.outline,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: theme.primary.withOpacity(0.5),
+                  focusColor: theme.secondary,
+                  hoverColor: Colors.transparent,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: theme.outline.withOpacity(0.25), width: 2),
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: theme.outline.withOpacity(0.25), width: 2),
+                    borderRadius: BorderRadius.circular(22),
+                  ),
+                  hintText: 'Search anything',
+                  hintStyle: TextStyle(
+                      color: theme.onSurface.withOpacity(0.5),
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal),
+                  prefixIcon:
+                      Icon(Icons.search, size: 29, color: theme.outline),
+                ),
+                style: TextStyle(
+                    color: theme.onSurface,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
           ],
         ),
       ),

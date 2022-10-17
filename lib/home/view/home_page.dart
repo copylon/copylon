@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:openhms/core/widgets/header.dart';
 import 'package:openhms/core/widgets/side_navbar.dart';
 import 'package:openhms/core/widgets/title_bar.dart';
 
@@ -17,16 +18,21 @@ class HomePage extends StatelessWidget {
             child: SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: const [
-                  Flexible(
+                children: [
+                  const Flexible(
                     fit: FlexFit.loose,
                     flex: 2,
                     child: SideNavBar(),
                   ),
                   Expanded(
                       flex: 11,
-                      child: Center(
-                        child: Text('Home'),
+                      child: Column(
+                        children: const [
+                          Header(title: 'Home'),
+                          Center(
+                            child: Text('Home'),
+                          ),
+                        ],
                       ))
                 ],
               ),

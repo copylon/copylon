@@ -59,9 +59,60 @@ class Header extends StatelessWidget {
                     fontWeight: FontWeight.normal),
               ),
             ),
+            const _NotificationsBadge(
+              hasNewNotifications: true,
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _NotificationsBadge extends StatelessWidget {
+  const _NotificationsBadge({super.key, required this.hasNewNotifications});
+  final bool hasNewNotifications;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
+    return Stack(
+      children: [
+        OutlinedButton(
+          onPressed: () {},
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all(CircleBorder(
+              side:
+                  BorderSide(color: theme.onSurface, style: BorderStyle.solid),
+            )),
+            side: MaterialStateProperty.all(
+                BorderSide(color: theme.onSurface, width: 2)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Icon(
+              Icons.notifications,
+              color: theme.onSurface,
+              size: 42,
+            ),
+          ),
+        ),
+        if (hasNewNotifications)
+          Positioned(
+            top: 3,
+            left: 55,
+            child: IgnorePointer(
+              ignoring: true,
+              child: Container(
+                  height: 15,
+                  width: 15,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFB39DDB),
+                  )),
+            ),
+          )
+      ],
     );
   }
 }

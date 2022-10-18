@@ -16,26 +16,44 @@ class HomePage extends StatelessWidget {
           const TitleBar(),
           Expanded(
             child: SafeArea(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Flexible(
-                    fit: FlexFit.loose,
-                    flex: 2,
-                    child: SideNavBar(),
-                  ),
-                  Expanded(
+              child: LayoutBuilder(builder: (context, constraints) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    constraints.maxWidth > 2400
+                        ? const SideNavBar()
+                        : const Flexible(
+                            fit: FlexFit.loose,
+                            flex: 2,
+                            child: SideNavBar(),
+                          ),
+                    Expanded(
                       flex: 11,
                       child: Column(
-                        children: const [
-                          Header(title: 'Home'),
-                          Center(
-                            child: Text('Home'),
+                        children: [
+                          const Header(
+                            title: 'Home',
+                            firstName: 'John',
+                            lastName: 'Doe',
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(right: 15, bottom: 15),
+                              child: Container(
+                                color: const Color(0xFF181818),
+                                child: const Center(
+                                  child: Text('Home'),
+                                ),
+                              ),
+                            ),
                           ),
                         ],
-                      ))
-                ],
-              ),
+                      ),
+                    )
+                  ],
+                );
+              }),
             ),
           ),
         ],

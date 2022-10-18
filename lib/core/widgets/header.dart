@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key, required this.title}) : super(key: key);
+  const Header(
+      {Key? key,
+      required this.title,
+      required this.firstName,
+      required this.lastName})
+      : super(key: key);
 
   final String title;
+  final String firstName, lastName;
 
   @override
   Widget build(BuildContext context) {
@@ -19,48 +25,80 @@ class Header extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              title,
-              style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: theme.onSurface),
-            ),
-            SizedBox(
-              width: 546,
-              child: TextField(
-                cursorColor: theme.outline,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: theme.primary.withOpacity(0.5),
-                  focusColor: theme.secondary,
-                  hoverColor: Colors.transparent,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: theme.outline.withOpacity(0.25), width: 2),
-                    borderRadius: BorderRadius.circular(22),
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: theme.outline.withOpacity(0.25), width: 2),
-                    borderRadius: BorderRadius.circular(22),
-                  ),
-                  hintText: 'Search anything',
-                  hintStyle: TextStyle(
-                      color: theme.onSurface.withOpacity(0.5),
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal),
-                  prefixIcon:
-                      Icon(Icons.search, size: 29, color: theme.outline),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Text(
+                title,
                 style: TextStyle(
-                    color: theme.onSurface,
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal),
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: theme.onSurface),
               ),
             ),
-            const _NotificationsBadge(
-              hasNewNotifications: true,
+            Flexible(
+              child: SizedBox(
+                width: 1000,
+                child: TextField(
+                  cursorColor: theme.outline,
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: theme.primary.withOpacity(0.5),
+                    focusColor: theme.secondary,
+                    hoverColor: Colors.transparent,
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: theme.outline.withOpacity(0.25), width: 2),
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                          color: theme.outline.withOpacity(0.25), width: 2),
+                      borderRadius: BorderRadius.circular(22),
+                    ),
+                    hintText: 'Search anything',
+                    hintStyle: TextStyle(
+                        color: theme.onSurface.withOpacity(0.5),
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal),
+                    prefixIcon:
+                        Icon(Icons.search, size: 29, color: theme.outline),
+                  ),
+                  style: TextStyle(
+                      color: theme.onSurface,
+                      fontSize: 14,
+                      fontWeight: FontWeight.normal),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                children: [
+                  const _NotificationsBadge(
+                    hasNewNotifications: true,
+                  ),
+                  const SizedBox(
+                    width: 25,
+                  ),
+                  Text(
+                    '$firstName $lastName',
+                    style: TextStyle(
+                        color: theme.onSurface.withOpacity(0.75),
+                        fontSize: 20.0),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.logout,
+                      color: theme.onSurface,
+                      size: 25,
+                    ),
+                    splashColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                  )
+                ],
+              ),
             ),
           ],
         ),
@@ -70,7 +108,7 @@ class Header extends StatelessWidget {
 }
 
 class _NotificationsBadge extends StatelessWidget {
-  const _NotificationsBadge({super.key, required this.hasNewNotifications});
+  const _NotificationsBadge({required this.hasNewNotifications});
   final bool hasNewNotifications;
 
   @override
@@ -93,14 +131,14 @@ class _NotificationsBadge extends StatelessWidget {
             child: Icon(
               Icons.notifications,
               color: theme.onSurface,
-              size: 42,
+              size: 35,
             ),
           ),
         ),
         if (hasNewNotifications)
           Positioned(
-            top: 3,
-            left: 55,
+            top: 2,
+            left: 49,
             child: IgnorePointer(
               ignoring: true,
               child: Container(

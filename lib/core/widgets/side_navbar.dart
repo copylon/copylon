@@ -9,7 +9,7 @@ class SideNavBar extends StatelessWidget {
     final theme = Theme.of(context).colorScheme;
 
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(10),
       child: Drawer(
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:openhms/core/helpers.dart';
 import 'package:openhms/core/widgets/header.dart';
+import 'package:openhms/core/widgets/hoverable_icon_button.dart';
 import 'package:openhms/core/widgets/side_navbar.dart';
 import 'package:openhms/core/widgets/title_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
+  static const List<List<String>> listEntries = [
+    ['10:00', 'Will Barrow', 'Single'],
+    ['10:10', 'Simonas Toni', 'Double'],
+    ['10:20', 'Tuula Mererid', 'Triple'],
+    ['10:30', 'Roosevelt Logan', 'Quad'],
+    ['10:40', 'George Fernandez', 'Queen'],
+    ['10:45', 'Beatrice Henderson', 'Twin'],
+    ['10:50', 'Emma Williamson', 'Suite'],
+    ['11:25', 'Eddie Mccarthy', 'Apartment'],
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +49,9 @@ class HomePage extends StatelessWidget {
                             firstName: 'John',
                             lastName: 'Doe',
                           ),
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(right: 15, bottom: 15),
-                              child: Container(
-                                color: const Color(0xFF181818),
-                                child: const Center(
-                                  child: Text('Home'),
-                                ),
-                              ),
-                            ),
-                          ),
+                          Row(
+                            children: [buildArrivals(context, listEntries)],
+                          )
                         ],
                       ),
                     )
@@ -56,6 +60,96 @@ class HomePage extends StatelessWidget {
               }),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Container buildArrivals(BuildContext context, List<List<String>> entries) {
+    final theme = Theme.of(context).colorScheme;
+    return Container(
+      width: 370,
+      height: 500,
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          color: theme.surface, borderRadius: BorderRadius.circular(24)),
+      child: Column(
+        children: [
+          Text(
+            'Arrivals for today',
+            style: TextStyle(
+                color: theme.onSurface,
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold),
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: entries.length,
+                  itemBuilder: ((_, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                              flex: 15,
+                              child: LayoutBuilder(
+                                builder: (_, constraints) {
+                                  final text =
+                                      '${entries[index][0]} - ${entries[index][1]} - ${entries[index][2]}';
+                                  final style = TextStyle(
+                                      color: theme.onSurface, fontSize: 16);
+                                  final overflow = checkLineOverflow(
+                                      context, constraints, text, style);
+                                  return overflow
+                                      ? Tooltip(
+                                          message: text,
+                                          decoration: BoxDecoration(
+                                              color: theme.secondary,
+                                              borderRadius:
+                                                  BorderRadius.circular(6)),
+                                          textStyle: TextStyle(
+                                              color: theme.onSurface,
+                                              fontSize: 13),
+                                          child: Text(
+                                            text,
+                                            style: style,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        )
+                                      : Text(
+                                          text,
+                                          style: style,
+                                          overflow: TextOverflow.ellipsis,
+                                        );
+                                },
+                              )),
+                          Expanded(
+                            flex: 2,
+                            child: HoverableIconButton(
+                              color: theme.onSurface,
+                              hoverColor: const Color(0xFF4FAD18),
+                              icon: const Icon(Icons.check),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 2,
+                              child: HoverableIconButton(
+                                color: theme.onSurface,
+                                hoverColor: const Color(0xFFA8162A),
+                                icon: const Icon(Icons.close),
+                              )),
+                        ],
+                      ),
+                    );
+                  })),
+            ),
+          )
         ],
       ),
     );

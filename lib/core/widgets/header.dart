@@ -15,7 +15,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
     return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
+      padding: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
       child: Container(
         height: 60,
         decoration: BoxDecoration(

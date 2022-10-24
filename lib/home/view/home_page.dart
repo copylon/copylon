@@ -50,7 +50,27 @@ class HomePage extends StatelessWidget {
                             lastName: 'Doe',
                           ),
                           Row(
-                            children: [buildArrivals(context, listEntries)],
+                            children: [
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      buildReservationsForTodayTable(
+                                        context,
+                                        'Arrivals for today',
+                                        listEntries,
+                                      ),
+                                      const SizedBox(width: 10),
+                                      buildReservationsForTodayTable(
+                                        context,
+                                        'Departures for today',
+                                        listEntries,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              )
+                            ],
                           )
                         ],
                       ),
@@ -65,7 +85,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Container buildArrivals(BuildContext context, List<List<String>> entries) {
+  Container buildReservationsForTodayTable(
+      BuildContext context, String title, List<List<String>> entries) {
     final theme = Theme.of(context).colorScheme;
     return Container(
       width: 370,
@@ -76,7 +97,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Arrivals for today',
+            title,
             style: TextStyle(
                 color: theme.onSurface,
                 fontSize: 24.0,

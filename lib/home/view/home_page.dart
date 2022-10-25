@@ -50,6 +50,7 @@ class HomePage extends StatelessWidget {
                             lastName: 'Doe',
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Column(
                                 children: [
@@ -69,6 +70,24 @@ class HomePage extends StatelessWidget {
                                     ],
                                   ),
                                 ],
+                              ),
+                              const SizedBox(width: 10),
+                              Container(
+                                width: 370,
+                                height: 882,
+                                padding: const EdgeInsets.all(15.0),
+                                decoration: BoxDecoration(
+                                    color: theme.surface,
+                                    borderRadius: BorderRadius.circular(24)),
+                                child: Column(children: [
+                                  Text(
+                                    'Room Status',
+                                    style: TextStyle(
+                                        color: theme.onSurface,
+                                        fontSize: 24.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ]),
                               )
                             ],
                           )

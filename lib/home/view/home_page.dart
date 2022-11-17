@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:openhms/core/helpers.dart';
+import 'package:openhms/core/widgets/donut_chart.dart';
 import 'package:openhms/core/widgets/header.dart';
 import 'package:openhms/core/widgets/hoverable_icon_button.dart';
 import 'package:openhms/core/widgets/side_navbar.dart';
@@ -8,6 +9,7 @@ import 'package:openhms/core/widgets/title_bar.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+// Placeholder data
   static const List<List<String>> listEntries = [
     ['10:00', 'Will Barrow', 'Single'],
     ['10:10', 'Simonas Toni', 'Double'],
@@ -42,55 +44,74 @@ class HomePage extends StatelessWidget {
                           ),
                     Expanded(
                       flex: 11,
-                      child: Column(
-                        children: [
-                          const Header(
-                            title: 'Home',
-                            firstName: 'John',
-                            lastName: 'Doe',
+                      child: CustomScrollView(
+                        slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Column(
+                              children: [
+                                const Header(
+                                  title: 'Home',
+                                  firstName: 'John',
+                                  lastName: 'Doe',
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            buildReservationsForTodayTable(
+                                              context,
+                                              'Arrivals for today',
+                                              listEntries,
+                                            ),
+                                            const SizedBox(width: 10),
+                                            buildReservationsForTodayTable(
+                                              context,
+                                              'Departures for today',
+                                              listEntries,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Flexible(
+                                      child: Container(
+                                        width: 370,
+                                        height: 882,
+                                        padding: const EdgeInsets.all(15.0),
+                                        decoration: BoxDecoration(
+                                            color: theme.surface,
+                                            borderRadius:
+                                                BorderRadius.circular(24)),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'Room Status',
+                                              style: TextStyle(
+                                                  color: theme.onSurface,
+                                                  fontSize: 24.0,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            Expanded(
+                                              child: DonutChart(
+                                                segments: generateSegmentData(),
+                                                centerText: "rooms",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      buildReservationsForTodayTable(
-                                        context,
-                                        'Arrivals for today',
-                                        listEntries,
-                                      ),
-                                      const SizedBox(width: 10),
-                                      buildReservationsForTodayTable(
-                                        context,
-                                        'Departures for today',
-                                        listEntries,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 10),
-                              Container(
-                                width: 370,
-                                height: 882,
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: BoxDecoration(
-                                    color: theme.surface,
-                                    borderRadius: BorderRadius.circular(24)),
-                                child: Column(children: [
-                                  Text(
-                                    'Room Status',
-                                    style: TextStyle(
-                                        color: theme.onSurface,
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ]),
-                              )
-                            ],
-                          )
                         ],
                       ),
                     )
@@ -193,5 +214,29 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  // Placeholder Data
+  List<DonutChartSegmentData> generateSegmentData() {
+    const List<String> segmentTitles = [
+      "Available",
+      "In use",
+      "Unprepared",
+      "Out of order",
+      "Out of order with tooltip",
+    ];
+    const List<double> segments = [29.0, 47.0, 13.0, 11.0, 10.0];
+    const List<Color> colors = [
+      Color(0xFF1a73e9),
+      Color(0xFF269546),
+      Color(0xFFffc00e),
+      Color(0xFFe2372d),
+      Color.fromARGB(255, 231, 7, 108),
+    ];
+    return List<DonutChartSegmentData>.generate(
+        segmentTitles.length,
+        growable: false,
+        (index) => DonutChartSegmentData(
+            colors[index], segments[index], segmentTitles[index]));
   }
 }

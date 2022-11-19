@@ -141,6 +141,7 @@ class _DonutChartState extends State<DonutChart> with TickerProviderStateMixin {
         child: Scrollbar(
           thumbVisibility: true,
           child: ListView.builder(
+            primary: true,
             scrollDirection: Axis.vertical,
             shrinkWrap: false,
             itemCount: widget.segments.length,

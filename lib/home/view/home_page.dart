@@ -24,6 +24,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).colorScheme;
+    final buttonStyle = ButtonStyle(
+        fixedSize: MaterialStateProperty.all<Size>(const Size(372, 93)),
+        backgroundColor:
+            MaterialStatePropertyAll(theme.surface.withOpacity(0.5)),
+        side: MaterialStatePropertyAll(
+            BorderSide(width: 3, color: theme.outline)),
+        shape: MaterialStatePropertyAll(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(24))));
+    final buttonTextStyle = TextStyle(
+        fontSize: 16, fontWeight: FontWeight.bold, color: theme.onPrimary);
     return Scaffold(
       backgroundColor: theme.background,
       body: Column(
@@ -76,6 +86,29 @@ class HomePage extends StatelessWidget {
                                             ),
                                           ],
                                         ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 10.0),
+                                          child: Row(
+                                            children: [
+                                              OutlinedButton(
+                                                  onPressed: () => {},
+                                                  style: buttonStyle,
+                                                  child: Text(
+                                                    'NEW CHECK IN',
+                                                    style: buttonTextStyle,
+                                                  )),
+                                              const SizedBox(width: 10),
+                                              OutlinedButton(
+                                                  onPressed: () => {},
+                                                  style: buttonStyle,
+                                                  child: Text(
+                                                    'NEW CHECK OUT',
+                                                    style: buttonTextStyle,
+                                                  ))
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
                                     const SizedBox(width: 10),
